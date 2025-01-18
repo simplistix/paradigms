@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Don't source control the lock file
+uv.lock
