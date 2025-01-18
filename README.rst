@@ -1,4 +1,5 @@
-# Different execution paradigms
+Different execution paradigms
+=============================
 
 - Synchronous
 - Async
