@@ -10,10 +10,12 @@ build:
        - asdf install uv latest
        - asdf global uv latest
     install:
-       - uv sync --only-group docs
+       # should be --only-group docs here and in uv run below, but:
+       # https://github.com/astral-sh/uv/issues/10752
+       - uv sync
     build:
        html:
-            - uv run --only-group docs sphinx-build -T -b html docs $READTHEDOCS_OUTPUT/html
+            - uv run sphinx-build -T -b html docs $READTHEDOCS_OUTPUT/html
 
 sphinx:
   configuration: docs/conf.py
