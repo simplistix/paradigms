@@ -11,6 +11,10 @@ class Caller[**P, T](Protocol):
     def __call__(self, *args: P.args, **kwargs: P.kwargs) -> T: ...
 
 
+# class Caller[**P, T, C: Callable[P, T]]:
+#     pass
+
+
 class Paradigms:
     def get[**P, T](
         self,
@@ -18,6 +22,21 @@ class Paradigms:
         paradigm: Type[Paradigm[P, T]] | None = None,
         execution: None = None,
     ) -> Caller[P, T]:
+        # execution in cpu-bound or io-bound?
+        # assert execution is None
+        # from .stdlib import Simple
+        #
+        #
+        # if iscoroutine(callable_) and paradigm is Simple:
+        #
+        #     def runner(*args, **kwargs):
+        #         return asyncio.run(callable_(*args, **kwargs))
+        #
+        #     return runner
+
         return partial(callable_)
 
     __call__ = get
+#
+# class Shift[In: Paradigm, Out: Paradigm](Protocol):
+#     pass
