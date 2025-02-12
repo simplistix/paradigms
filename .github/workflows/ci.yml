@@ -8,7 +8,8 @@ on:
     - cron: "0 1 * * *"
 
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'failure' && exit 1
+  ci:
+    uses: cjw296/python-workflow/.github/workflows/uv-ci.yml@v1
+    with:
+      package: paradigms
+      python-versions: '[ "3.12", "3.13" ]'
