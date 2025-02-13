@@ -10,11 +10,19 @@ class Paradigm[**P, T](Protocol):
         pass
 
 
+class Caller[**P, T](Protocol):
+
+    def __call__(self, *args: P.args, **kwargs: P.kwargs) -> T: ...
+
+
 class Paradigms:
 
-    def get(
-        self, callable_, paradigm: Type[Paradigm] | None = None, execution: None = None
-    ) -> Paradigm:
+    def get[**P, T](
+        self,
+        callable_: Callable[P, T],
+        paradigm: Type[Paradigm[P, T]] | None = None,
+        execution: None = None,
+    ) -> Caller[P, T]:
         # execution in cpu-bound or io-bound?
         assert execution is None
         from .stdlib import Simple
