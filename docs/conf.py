@@ -3,7 +3,7 @@ from importlib import metadata
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
-    ]
+]
 
 intersphinx_mapping = {
     'python': ('http://docs.python.org', None),
@@ -22,5 +22,4 @@ autodoc_member_order = 'bysource'
 html_theme = 'furo'
 
 nitpicky = True
-nitpick_ignore = [
-]
+nitpick_ignore = []
