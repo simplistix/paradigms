@@ -8,10 +8,6 @@ def add(x: int, y: int) -> int:
     return x + y
 
 
-async def async_add(x: int, y: int) -> int:
-    return x + y
-
-
 def test_minimal() -> None:
     compare(Paradigms()(add)(1, 2), expected=3)
 

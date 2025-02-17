@@ -6,8 +6,7 @@ from typing import Protocol, Type
 
 
 class Paradigm[**P, T](Protocol):
-    def __call__(self, callable_: Callable[P, T], /, *args: P.args, **kwargs: P.kwargs) -> T:
-        pass
+    def __call__(self, callable_: Callable[P, T], /, *args: P.args, **kwargs: P.kwargs) -> T: ...
 
 
 class Caller[**P, T](Protocol):
@@ -23,17 +22,6 @@ class Paradigms:
         paradigm: Type[Paradigm[P, T]] | None = None,
         execution: None = None,
     ) -> Caller[P, T]:
-        # execution in cpu-bound or io-bound?
-        assert execution is None
-        from .stdlib import Simple
-
-        if iscoroutine(callable_) and paradigm is Simple:
-
-            def runner(*args, **kwargs):
-                return asyncio.run(callable_(*args, **kwargs))
-
-            return runner
-
         return partial(callable_)
 
     __call__ = get
