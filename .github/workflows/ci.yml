@@ -105,6 +105,19 @@ jobs:
       - name: Run tests
         run: uv run mypy src tests
 
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
+        with:
+          cache-dependency-glob: "**/pyproject.toml"
+
+      - name: Check formatting is correct
+        run:  |
+          uv tool install black
+          black --check .
+
 # to add
 # - check formatting
 # - build package
