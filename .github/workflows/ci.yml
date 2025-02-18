@@ -46,8 +46,8 @@ jobs:
           if-no-files-found: ignore
 
   coverage:
-    runs-on: ubuntu-latest
     needs: tests
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -117,8 +117,29 @@ jobs:
           uv tool install black
           black --check .
 
+  build-package:
+    needs:
+      - coverage
+      - tests
+      - formatting
+      - typing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          cache-dependency-glob: "**/pyproject.toml"
+
+      - name: Build package
+        run:  uv build
+
+      - name: Archive distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: distributions
+          path: dist/*
+
 # to add
-# - check formatting
-# - build package
 # - check package
 # - release
