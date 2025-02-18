@@ -27,6 +27,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache-dependency-glob: "**/pyproject.toml"
+          cache-suffix: ${{ matrix.uv-resolution }}
 
       - name: Install the project
         run: uv sync --all-extras --dev --resolution ${{ matrix.uv-resolution }}
