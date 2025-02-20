@@ -118,11 +118,11 @@ jobs:
           black --check .
 
   build-package:
-    needs:
-      - coverage
-      - tests
-      - formatting
-      - typing
+#    needs:
+#      - coverage
+#      - tests
+#      - formatting
+#      - typing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -139,6 +139,25 @@ jobs:
         with:
           name: distributions
           path: dist/*
+
+  check-package:
+    needs:
+      - build-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: distributions
+
+      - name: "Show Distributions"
+        run: "ls -lahr *"
+
+      - name: "Show wheel contents"
+        run: "unzip -l *.whl"
+
+      - name: "Shows sdist contents"
+        run: "tar tzf *.tar.gz"
 
 # to add
 # - check package
