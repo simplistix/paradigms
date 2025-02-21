@@ -146,7 +146,3 @@ jobs:
 
       - name: "Shows sdist contents"
         run: "tar tzf *.tar.gz"
-
-# to add
-# - check package
-# - release
