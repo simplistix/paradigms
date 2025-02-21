@@ -117,7 +117,7 @@ jobs:
           uv tool install black
           black --check .
 
-  build-package:
+  build-and-inspect-package:
 #    needs:
 #      - coverage
 #      - tests
@@ -126,29 +126,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v5
-        with:
-          cache-dependency-glob: "**/pyproject.toml"
-
-      - name: Build package
-        run:  uv build
-
-      - name: Archive distributions
-        uses: actions/upload-artifact@v4
-        with:
-          name: distributions
-          path: dist/*
+      - uses: hynek/build-and-inspect-python-package@v2
 
   check-package:
     needs:
-      - build-package
+      - build-and-inspect-package
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve distributions
         uses: actions/download-artifact@v4
         with:
-          name: distributions
+          name: Packages
 
       - name: "Show Distributions"
         run: "ls -lahr *"
