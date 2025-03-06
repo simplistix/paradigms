@@ -7,14 +7,41 @@ on:
     branches: [main]
 
 jobs:
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'Continuous Integration failed, not releasing...'
-
-  on-success:
+  release:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo 'The triggering workflow passed'
+      - name: Checkout the commit for which CI ran
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Download packages from CI run
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: Packages
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install carthorse
+        run: pip install carthorse
+        shell: bash
+
+      - name: Write .carthorse.yaml
+        shell: bash
+        run: |
+          cat > .carthorse.yaml << EOL
+          carthorse:
+            version-from: pyproject
+            when:
+              - version-not-tagged
+            actions:
+              - create-tag
+          EOL
+
+      - name: Run carthorse
+        run: carthorse --config .carthorse.yaml --dry-run
+        shell: bash
