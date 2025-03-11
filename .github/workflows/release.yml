@@ -39,9 +39,7 @@ jobs:
             when:
               - version-not-tagged
             actions:
-              - run: 'echo "tag=$TAG" >> "$GITHUB_OUTPUT"' 
-              - run: "echo $GITHUB_OUTPUT"
-              - run: "cat $GITHUB_OUTPUT"
+              - run: 'echo $TAG'
           EOL
 
       - name: Run carthorse
