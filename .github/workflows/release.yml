@@ -42,6 +42,16 @@ jobs:
               - run: 'echo $TAG'
           EOL
 
+      - run: "env | sort"
+        shell: bash
+
+      - run: "export"
+        shell: bash
+
+      - run: "env | sort"
+
+      - run: "export"
+
       - name: Run carthorse
         id: carthorse
         run: carthorse --config .carthorse.yaml
