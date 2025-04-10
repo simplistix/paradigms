@@ -26,22 +26,23 @@ dev = [
     "testfixtures>=8.3.0",
 ]
 
-[tool.black]
-line-length = 100
-skip-string-normalization = true
-
 [tool.mypy]
 strict= true
 check_untyped_defs = true
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
-
 [[tool.mypy.overrides]]
 module = [
     "testfixtures",
 ]
 ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.format]
+quote-style = "preserve"
 
 [tool.uv]
 default-groups = ["docs"]
