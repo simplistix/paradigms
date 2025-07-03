@@ -1,5 +1,6 @@
 Paradigms
 =========
+
 |Docs|_  |PyPI|_ |Git|_
 
 .. |Docs| image:: https://readthedocs.org/projects/paradigms/badge/?version=latest
