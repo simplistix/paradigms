@@ -36,7 +36,6 @@ class Paradigms:
 
         return partial(callable_)
 
-    __call__ = get
 #
 # class Shift[In: Paradigm, Out: Paradigm](Protocol):
 #     pass
