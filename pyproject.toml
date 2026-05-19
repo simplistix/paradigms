@@ -41,5 +41,8 @@ line-length = 100
 [tool.ruff.format]
 quote-style = "preserve"
 
+[tool.coverage.run]
+source = ["paradigms", "tests"]
+
 [tool.uv]
 default-groups = ["docs"]
